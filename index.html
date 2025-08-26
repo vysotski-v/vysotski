@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Valeriy Vysotskiy - Design & Development" />
+  <meta name="author" content="Valeriy Vysotskiy" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>" />
+  
+  <title>Valeriy Vysotskiy</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-23PFVNGPDJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-23PFVNGPDJ');
+  </script>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      color: #111111;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 480px;
+      text-align: left;
+      padding: 0 24px;
+    }
+
+    h2 {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: #111111;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #444444;
+      margin-bottom: 32px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .link {
+      position: relative;
+      font-size: 14px;
+      font-weight: 400;
+      color: #959596;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+      width: fit-content;
+    }
+
+    .link:hover {
+      background: linear-gradient(
+        90deg,
+        #ACEEA2,
+        #F9B46F,
+        #AED8FD,
+        #FDBCEE,
+        #E1BEF9
+      );
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 2s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .link:focus {
+      outline: none;
+    }
+
+    .footer-note {
+      font-size: 14px;
+      color: #999999;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 14px;
+      }
+      
+      p {
+        font-size: 14px;
+      }
+      
+      .link {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      h2 {
+        font-size: 14px;
+      }
+      
+      p {
+        font-size: 14px;
+      }
+      
+      .link {
+        font-size: 14px;
+      }
+    }
+
+    /* Reduced motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .link {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Hey, I'm Valeriy.</h2>
+    
+    <p>
+      I'm building <a href="https://humandone.com" target="_blank" rel="noopener noreferrer" class="link">Humandone</a> (design & dev agency). I travel a lot, go to conferences, and always happy to catch up.
+    </p>
+    
+    <div class="links">
+      <a id="emailButton" class="link" href="#" onclick="copyEmailToClipboard(); return false;">
+        Email me
+      </a>
+      
+      <a 
+        href="https://www.linkedin.com/in/stimes/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="link"
+      >
+        Connect on LinkedIn
+      </a>
+      
+      <a 
+        href="https://calendly.com/vysotskiy/30-minute-meeting" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="link"
+      >
+        Schedule a meeting
+      </a>
+    </div>
+    
+    <p class="footer-note">
+      Last updated: 2025.08.26
+    </p>
+  </div>
+
+  <script>
+    // Email copy functionality with error handling
+    const emailBtn = document.getElementById('emailButton');
+    const email = 'hey@vysotski.me';
+    
+    async function copyEmailToClipboard() {
+      try {
+        // Check if clipboard API is available
+        if (!navigator.clipboard) {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = email;
+          textArea.style.cssText = `
+            position: absolute;
+            left: -100vw;
+            top: -100vh;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+          `;
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textArea);
+          
+          if (successful) {
+            showSuccessMessage();
+          } else {
+            showErrorMessage();
+          }
+          return;
+        }
+        
+        // Modern clipboard API
+        await navigator.clipboard.writeText(email);
+        showSuccessMessage();
+        
+      } catch (err) {
+        console.error('Failed to copy email:', err);
+        showErrorMessage();
+      }
+    }
+    
+    function showSuccessMessage() {
+      const originalText = emailBtn.textContent;
+      emailBtn.textContent = 'Email copied!';
+      
+      setTimeout(() => {
+        emailBtn.textContent = originalText;
+      }, 2000);
+    }
+    
+    function showErrorMessage() {
+      const originalText = emailBtn.textContent;
+      emailBtn.textContent = 'Failed to copy';
+      
+      setTimeout(() => {
+        emailBtn.textContent = originalText;
+      }, 2000);
+    }
+    
+    // Add keyboard support for email link
+    emailBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyEmailToClipboard();
+      }
+    });
+    
+    // Preload fonts for better performance
+    if ('fonts' in document) {
+      document.fonts.ready.then(() => {
+        console.log('Fonts loaded successfully');
+      });
+    }
+  </script>
+</body>
+</html>
