@@ -122,6 +122,19 @@
       outline: none;
     }
 
+    .link-icon {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .link:hover .link-icon {
+      transform: scale(1.1);
+      transition: transform 0.2s ease;
+    }
+
     .footer-note {
       font-size: 14px;
       color: #999999;
@@ -173,12 +186,16 @@
     <h2>Hey, I'm Valeriy.</h2>
     
     <p>
-      I'm building <a href="https://humandone.com" target="_blank" rel="noopener noreferrer" class="link">Humandone</a> (design & dev agency). I travel a lot, go to conferences, and always happy to catch up.
+      I'm building <a href="https://humandone.com" target="_blank" rel="noopener noreferrer" class="link">Humandone</a> (digital design & dev agency). I travel a lot, go to conferences, and always happy to catch up.
     </p>
     
     <div class="links">
       <a id="emailButton" class="link" href="#" onclick="copyEmailToClipboard(); return false;">
         Email me
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 1H4C2.9 1 2 1.9 2 3v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 15H4V4h12v12z"/>
+          <path d="M8 7h8v2H8zm0 4h6v2H8z"/>
+        </svg>
       </a>
       
       <a 
@@ -188,6 +205,11 @@
         class="link"
       >
         Connect on LinkedIn
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15,3 21,3 21,9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
       </a>
       
       <a 
@@ -197,6 +219,11 @@
         class="link"
       >
         Schedule a meeting
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15,3 21,3 21,9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
       </a>
     </div>
     
