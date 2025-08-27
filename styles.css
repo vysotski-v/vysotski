@@ -59,26 +59,26 @@ p {
   width: fit-content;
 }
 
-.link:hover {
-  background: linear-gradient(
-    135deg,
-    #7FD678,
-    #6BB9FC,
-    #C28AF1,
-    #F98CDB,
-    #F79A3D
-  );
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 2s ease infinite;
-}
+    .link:hover {
+      background: linear-gradient(
+        90deg,
+        #F79A3E,
+        #FA8DDC,
+        #64F2FF,
+        #5985FF,
+        #F98CDB,
+        #F79A3D
+      );
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 10s linear infinite;
+    }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+    }
 
 .link:focus {
   outline: none;
