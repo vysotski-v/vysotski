@@ -61,12 +61,12 @@ p {
 
 .link:hover {
   background: linear-gradient(
-    90deg,
-    #ACEEA2,
-    #F9B46F,
-    #AED8FD,
-    #FDBCEE,
-    #E1BEF9
+    135deg,
+    #7FD678,
+    #6BB9FC,
+    #C28AF1,
+    #F98CDB,
+    #F79A3D
   );
   background-size: 400% 400%;
   -webkit-background-clip: text;
