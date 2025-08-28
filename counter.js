@@ -1,54 +1,55 @@
-// Simple Click Counter
-// Uses localStorage for persistence (no database needed)
+// Database-backed Click Counter using Supabase
 
 class ClickCounter {
   constructor() {
-    this.counts = {
-      square: 0,
-      circle: 0
-    };
+    this.db = null;
     this.init();
   }
 
-  init() {
-    // Load saved counts from localStorage
-    this.loadCounts();
-    
-    // Attach event listeners
-    this.attachEventListeners();
-    
-    // Update display
-    this.updateDisplay();
-    
-    console.log('Click counter initialized');
+  async init() {
+    try {
+      // Try to use Supabase database
+      this.db = new ClickDatabase();
+      await this.db.initialize();
+      
+      // Attach event listeners
+      this.attachEventListeners();
+      
+      // Update display with current counts
+      this.updateDisplay();
+      
+      console.log('Click counter initialized with Supabase database');
+    } catch (error) {
+      console.error('Error initializing Supabase database, falling back to local storage:', error);
+      // Fallback to local storage if database fails
+      this.fallbackToLocal();
+    }
   }
 
-  loadCounts() {
+  fallbackToLocal() {
+    console.log('Falling back to local storage');
+    this.db = new LocalClickDatabase();
+    this.db.initialize();
+    this.attachEventListeners();
+    this.updateDisplay();
+  }
+
+  async increment(id) {
     try {
-      const saved = localStorage.getItem('clickCounts');
-      if (saved) {
-        this.counts = JSON.parse(saved);
-        console.log('Loaded counts from localStorage:', this.counts);
+      if (this.db) {
+        // Use database
+        const newCount = await this.db.increment(id);
+        this.updateDisplay();
+        console.log(`${id} clicked! New count: ${newCount}`);
       }
     } catch (error) {
-      console.error('Error loading counts:', error);
-    }
-  }
-
-  saveCounts() {
-    try {
-      localStorage.setItem('clickCounts', JSON.stringify(this.counts));
-    } catch (error) {
-      console.error('Error saving counts:', error);
-    }
-  }
-
-  increment(id) {
-    if (this.counts.hasOwnProperty(id)) {
-      this.counts[id]++;
-      this.saveCounts();
-      this.updateDisplay();
-      console.log(`${id} clicked! New count: ${this.counts[id]}`);
+      console.error('Error incrementing counter:', error);
+      // If database fails, try to fallback to local storage
+      if (this.db instanceof ClickDatabase) {
+        console.log('Database failed, switching to local storage');
+        this.fallbackToLocal();
+        await this.increment(id); // Retry with local storage
+      }
     }
   }
 
@@ -56,12 +57,19 @@ class ClickCounter {
     const squareEl = document.getElementById('square');
     const circleEl = document.getElementById('circle');
     
+    let counts;
+    if (this.db) {
+      counts = this.db.getCounts();
+    } else {
+      counts = { square: 0, circle: 0 };
+    }
+    
     if (squareEl) {
-      squareEl.textContent = this.counts.square;
+      squareEl.textContent = counts.square;
     }
     
     if (circleEl) {
-      circleEl.textContent = this.counts.circle;
+      circleEl.textContent = counts.circle;
     }
   }
 
@@ -81,11 +89,16 @@ class ClickCounter {
   }
 
   // Public method to reset counts
-  reset() {
-    this.counts = { square: 0, circle: 0 };
-    this.saveCounts();
-    this.updateDisplay();
-    console.log('Counts reset');
+  async reset() {
+    try {
+      if (this.db) {
+        await this.db.reset();
+      }
+      this.updateDisplay();
+      console.log('Counts reset');
+    } catch (error) {
+      console.error('Error resetting counts:', error);
+    }
   }
 }
 
