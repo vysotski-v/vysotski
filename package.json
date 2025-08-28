@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "@supabase/supabase-js": "^2.56.0"
-  }
+  "name": "vysotski-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio with click counters"
 }

@@ -44,19 +44,6 @@
   </script>
   
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // Wait for Supabase to be available
-    window.addEventListener('load', function() {
-      if (typeof supabase !== 'undefined') {
-        console.log('Supabase loaded successfully');
-      } else {
-        console.error('Supabase not loaded');
-      }
-    });
-  </script>
 </head>
 <body>
 
@@ -104,87 +91,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="square" class="click-square hover-gradient">0</div>
   <div id="circle" class="click-circle hover-gradient">0</div>
 
-
-  <script>
-    // Email copy functionality with error handling
-    const emailBtn = document.getElementById('emailButton');
-    const email = 'hey@vysotski.me';
-    
-    async function copyEmailToClipboard() {
-      try {
-        // Check if clipboard API is available
-        if (!navigator.clipboard) {
-          // Fallback for older browsers
-          const textArea = document.createElement('textarea');
-          textArea.value = email;
-          textArea.style.cssText = `
-            position: absolute;
-            left: -100vw;
-            top: -100vh;
-            opacity: 0;
-            pointer-events: none;
-            user-select: none;
-          `;
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          
-          const successful = document.execCommand('copy');
-          document.body.removeChild(textArea);
-          
-          if (successful) {
-            showSuccessMessage();
-          } else {
-            showErrorMessage();
-          }
-          return;
-        }
-        
-        // Modern clipboard API
-        await navigator.clipboard.writeText(email);
-        showSuccessMessage();
-        
-      } catch (err) {
-        console.error('Failed to copy email:', err);
-        showErrorMessage();
-      }
-    }
-    
-    function showSuccessMessage() {
-      const originalText = emailBtn.textContent;
-      emailBtn.textContent = 'Email copied!';
-      
-      setTimeout(() => {
-        emailBtn.textContent = originalText;
-      }, 2000);
-    }
-    
-    function showErrorMessage() {
-      const originalText = emailBtn.textContent;
-      emailBtn.textContent = 'Failed to copy';
-      
-      setTimeout(() => {
-        emailBtn.textContent = originalText;
-      }, 2000);
-    }
-    
-    // Add keyboard support for email link
-    emailBtn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        copyEmailToClipboard();
-      }
-    });
-    
-    // Preload fonts for better performance
-    if ('fonts' in document) {
-      document.fonts.ready.then(() => {
-        console.log('Fonts loaded successfully');
-      });
-    }
-
-  </script>
-  <script src="supabaseClient.js"></script>
-  <script src="clicks.js"></script>
+  <script src="main.js"></script>
+  <script src="counter.js"></script>
 </body>
 </html>
