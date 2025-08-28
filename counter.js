@@ -28,10 +28,10 @@ class ClickCounter {
     }
   }
 
-  fallbackToLocal() {
+  async fallbackToLocal() {
     console.log('Falling back to local storage');
     this.db = new LocalClickDatabase();
-    this.db.initialize();
+    await this.db.initialize();
     this.attachEventListeners();
     this.updateDisplay();
   }
@@ -51,43 +51,43 @@ class ClickCounter {
       // If database fails, try to fallback to local storage
       if (this.db instanceof ClickDatabase) {
         console.log('Database failed, switching to local storage');
-        this.fallbackToLocal();
+        await this.fallbackToLocal();
         await this.increment(id); // Retry with local storage
       }
     }
   }
 
   updateDisplay() {
-    const squareEl = document.getElementById('square');
-    const circleEl = document.getElementById('circle');
+    const squareEl = document.getElementById('btn-square');
+    const circleEl = document.getElementById('btn-circle');
     
     let counts;
     if (this.db) {
       counts = this.db.getCounts();
     } else {
-      counts = { square: 0, circle: 0 };
+      counts = { 'btn-square': 0, 'btn-circle': 0 };
     }
     
     if (squareEl) {
-      squareEl.textContent = counts.square;
+      squareEl.textContent = counts['btn-square'];
     }
     
     if (circleEl) {
-      circleEl.textContent = counts.circle;
+      circleEl.textContent = counts['btn-circle'];
     }
   }
 
   attachEventListeners() {
-    const squareEl = document.getElementById('square');
-    const circleEl = document.getElementById('circle');
+    const squareEl = document.getElementById('btn-square');
+    const circleEl = document.getElementById('btn-circle');
     
     if (squareEl) {
-      squareEl.addEventListener('click', () => this.increment('square'));
+      squareEl.addEventListener('click', () => this.increment('btn-square'));
       console.log('Square click listener attached');
     }
     
     if (circleEl) {
-      circleEl.addEventListener('click', () => this.increment('circle'));
+      circleEl.addEventListener('click', () => this.increment('btn-circle'));
       console.log('Circle click listener attached');
     }
   }

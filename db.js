@@ -5,13 +5,13 @@ class SupabaseClickDatabase {
     this.supabaseUrl = 'https://hpvpozhrsxlvtzolgfhj.supabase.co';
     this.supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwdnBvemhyc3hsdnR6b2xnZmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzODMzODQsImV4cCI6MjA3MTk1OTM4NH0.rHgWYjc5PFQNcDIvgmNy3XHROcbSYNUYSk34b5aAU4E';
     this.client = null;
-    this.counts = { square: 0, circle: 0 };
+    this.counts = { 'btn-square': 0, 'btn-circle': 0 };
   }
 
   async initialize() {
     try {
       // Create Supabase client
-      this.client = supabase.createClient(this.supabaseUrl, this.supabaseKey);
+      this.client = window.supabase.createClient(this.supabaseUrl, this.supabaseKey);
       
       // Load existing counts
       await this.loadCounts();
@@ -34,7 +34,7 @@ class SupabaseClickDatabase {
       }
 
       // Initialize counts from database
-      this.counts = { square: 0, circle: 0 };
+      this.counts = { 'btn-square': 0, 'btn-circle': 0 };
       data.forEach(row => {
         if (this.counts.hasOwnProperty(row.id)) {
           this.counts[row.id] = row.count;
@@ -118,19 +118,19 @@ class SupabaseClickDatabase {
       const { error: updateSquareError } = await this.client
         .from('clicks')
         .update({ count: 0 })
-        .eq('id', 'square');
+        .eq('id', 'btn-square');
 
       const { error: updateCircleError } = await this.client
         .from('clicks')
         .update({ count: 0 })
-        .eq('id', 'circle');
+        .eq('id', 'btn-circle');
 
       if (updateSquareError || updateCircleError) {
         console.error('Error resetting counts:', updateSquareError || updateCircleError);
         throw updateSquareError || updateCircleError;
       }
 
-      this.counts = { square: 0, circle: 0 };
+      this.counts = { 'btn-square': 0, 'btn-circle': 0 };
     } catch (error) {
       console.error('Error in reset:', error);
       throw error;
@@ -141,7 +141,7 @@ class SupabaseClickDatabase {
 // Fallback to localStorage if Supabase fails
 class LocalClickDatabase {
   constructor() {
-    this.counts = { square: 0, circle: 0 };
+    this.counts = { 'btn-square': 0, 'btn-circle': 0 };
   }
 
   async initialize() {
@@ -182,7 +182,7 @@ class LocalClickDatabase {
   }
 
   async reset() {
-    this.counts = { square: 0, circle: 0 };
+    this.counts = { 'btn-square': 0, 'btn-circle': 0 };
     this.saveToStorage();
   }
 }

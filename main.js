@@ -1,7 +1,7 @@
 // Main JavaScript functionality for Vysotski portfolio
 
 // Email copy functionality with error handling
-const emailBtn = document.getElementById('emailButton');
+const emailBtn = document.getElementById('btn-email');
 const email = 'hey@vysotski.me';
 
 async function copyEmailToClipboard() {
