@@ -89,6 +89,55 @@ p {
   color: #999999;
 }
 
+.click-square, .click-circle {
+  width: 32px;
+  height: 32px;
+  background: #ECECEC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  position: fixed;
+  cursor: pointer;
+  z-index: 999; /* keep above other content */
+}
+
+/* Square: bottom-left corner with 40px padding */
+.click-square {
+  bottom: 40px;
+  left: 40px;
+  border-radius: 8px; /* rounded corners */
+}
+
+/* Circle: bottom-right corner with 40px padding */
+.click-circle {
+  bottom: 40px;
+  right: 40px;
+  border-radius: 50%; /* full circle */
+}
+
+/* Gradient hover effect */
+.hover-gradient:hover {
+  background: linear-gradient(
+    90deg,
+    #F79A3E,
+    #FA8DDC,
+    #64F2FF,
+    #5985FF,
+    #F98CDB,
+    #F79A3D
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 10s linear infinite;
+  color: white; /* keeps number visible */
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+
 /* Responsive design */
 @media (max-width: 768px) {
   h2 {
