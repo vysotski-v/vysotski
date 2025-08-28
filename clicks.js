@@ -1,5 +1,4 @@
 // clicks.js
-import { supabase } from './supabaseClient.js'
 
 // Load counts on page load
 async function loadCounts() {
@@ -47,9 +46,27 @@ async function increment(id) {
   if (el) el.innerText = newCount
 }
 
-// Attach click events
-document.getElementById('square').addEventListener('click', () => increment('square'))
-document.getElementById('circle').addEventListener('click', () => increment('circle'))
+// Attach click events when DOM is ready
+function attachEventListeners() {
+  const squareEl = document.getElementById('square')
+  const circleEl = document.getElementById('circle')
+  
+  if (squareEl) {
+    squareEl.addEventListener('click', () => increment('square'))
+  }
+  
+  if (circleEl) {
+    circleEl.addEventListener('click', () => increment('circle'))
+  }
+}
 
 // Run on startup
-loadCounts()
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    attachEventListeners()
+    loadCounts()
+  })
+} else {
+  attachEventListeners()
+  loadCounts()
+}
