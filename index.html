@@ -47,6 +47,16 @@
   
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Wait for Supabase to be available
+    window.addEventListener('load', function() {
+      if (typeof supabase !== 'undefined') {
+        console.log('Supabase loaded successfully');
+      } else {
+        console.error('Supabase not loaded');
+      }
+    });
+  </script>
 </head>
 <body>
 
