@@ -9,6 +9,7 @@ class ClickCounter {
   async init() {
     try {
       // Try to use Supabase database
+      console.log('Initializing Supabase database...');
       this.db = new ClickDatabase();
       await this.db.initialize();
       
@@ -19,6 +20,7 @@ class ClickCounter {
       this.updateDisplay();
       
       console.log('Click counter initialized with Supabase database');
+      console.log('Initial counts loaded:', this.db.getCounts());
     } catch (error) {
       console.error('Error initializing Supabase database, falling back to local storage:', error);
       // Fallback to local storage if database fails
@@ -38,9 +40,11 @@ class ClickCounter {
     try {
       if (this.db) {
         // Use database
+        console.log(`Incrementing ${id} in database...`);
         const newCount = await this.db.increment(id);
         this.updateDisplay();
         console.log(`${id} clicked! New count: ${newCount}`);
+        console.log('Current database counts:', this.db.getCounts());
       }
     } catch (error) {
       console.error('Error incrementing counter:', error);

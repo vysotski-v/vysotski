@@ -64,7 +64,7 @@ class SupabaseClickDatabase {
       let currentCount = 0;
 
       if (error && error.code === 'PGRST116') {
-        // Row doesn't exist, create it
+        // Row doesn't exist, create it with count = 1
         console.log(`Creating new row for ${id}`);
         const { error: insertError } = await this.client
           .from('clicks')
@@ -74,7 +74,10 @@ class SupabaseClickDatabase {
           console.error('Error creating row:', insertError);
           throw insertError;
         }
-        currentCount = 1;
+        
+        // Update local counts and return 1
+        this.counts[id] = 1;
+        return 1;
       } else if (error) {
         console.error('Error fetching count:', error);
         throw error;
@@ -84,17 +87,15 @@ class SupabaseClickDatabase {
 
       const newCount = currentCount + 1;
 
-      // Update the count
-      if (currentCount > 0) {
-        const { error: updateError } = await this.client
-          .from('clicks')
-          .update({ count: newCount })
-          .eq('id', id);
+      // Update the count in database
+      const { error: updateError } = await this.client
+        .from('clicks')
+        .update({ count: newCount })
+        .eq('id', id);
 
-        if (updateError) {
-          console.error('Error updating count:', updateError);
-          throw updateError;
-        }
+      if (updateError) {
+        console.error('Error updating count:', updateError);
+        throw updateError;
       }
 
       // Update local counts
