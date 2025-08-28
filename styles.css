@@ -127,14 +127,14 @@ p {
     #F98CDB,
     #F79A3D
   );
-  background-size: 400% 400%;
-  animation: gradientShift 10s linear infinite;
+  background-size: 1500% 1500%;
+  animation: gradientShift 20s linear infinite;
   color: white; /* keeps number visible */
 }
 
 @keyframes gradientShift {
   0%   { background-position: 0% 50%; }
-  100% { background-position: 400% 50%; }
+  100% { background-position: 1500% 50%; }
 }
 
 
