@@ -1,5 +1,8 @@
 {
   "name": "vysotski-portfolio",
   "version": "1.0.0",
-  "description": "Personal portfolio with click counters"
+  "description": "Personal portfolio with click counters",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.2.0"
+  }
 }
