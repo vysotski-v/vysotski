@@ -16,14 +16,16 @@ body {
 }
 
 .container {
-  max-width: 480px;
+  max-width: 420px;
   text-align: left;
   padding: 0 24px;
 }
 
 h2 {
-  font-size: 14px;
+  font-family: 'Lora', serif;
+  font-size: 28px;
   font-weight: 400;
+  font-style: italic;
   line-height: 1.2;
   color: #111111;
   margin-bottom: 20px;
