@@ -144,7 +144,7 @@ p {
 /* Responsive design */
 @media (max-width: 768px) {
   h2 {
-    font-size: 24px;
+    font-size: 28px;
   }
   
   p {
@@ -158,11 +158,11 @@ p {
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 20px;
+    padding: 0 40px;
   }
   
   h2 {
-    font-size: 22px;
+    font-size: 28px;
   }
   
   p {
